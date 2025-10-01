@@ -24,16 +24,17 @@ flowchart LR
   ADDER --> SUM5["sum5[4:0] = {CO,SUM}"]
   SUM5 --> BCD["bin5_to_bcd"]
 
-  CLK["clk"] --> MUX
-  BCD --> MUX
+  CLK["clk"] --> MUXNODE
+  BCD --> MUXNODE
 
   subgraph MUX ["seven_seg_mux (+ seven_seg_decoder)"]
-    MUX
+    MUXNODE
   end
 
-  MUX --> AN["an[3:0]"]
-  MUX --> SEG["seg[6:0]"]
-  MUX --> DP["dp"]
+  MUXNODE --> AN["an[3:0]"]
+  MUXNODE --> SEG["seg[6:0]"]
+  MUXNODE --> DP["dp"]
+
 
 
 ```
