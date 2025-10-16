@@ -2,9 +2,16 @@
 
 ## Level-0 Block Diagram
 ```mermaid
-flowchart LR
-  SW["SW[15:3] (sensors)"] --> SYS["Vehicle Safety Interlock System"]
-  SYS --> LED["LED[15:5] (permit, chime, warnings)"]
+graph TD
+    A[SW[11:0]<br>12-bit Binary Input] -->|Binary to BCD Conversion| B(bin12_to_bcd16.v)
+    B -->|4-Digit BCD Output| C[mux4_nibble.v<br>4-to-1 Nibble Multiplexer]
+    C -->|Selected BCD Digit| D[bcd7seg.v<br>BCD to 7-Segment Decoder]
+    D -->|7-Segment Cathode Signals| E[Seven-Segment Display<br>(Cathodes a–g)]
+    C -->|Digit Select| F[refresh_gen.v<br>Refresh Generator]
+    F -->|Time-Division Multiplexing| G[Anode Control<br>(AN3–AN0)]
+    E -->|Display Output| H[Basys3 4-Digit Display]
+    G --> H
+
 ```
 
 
